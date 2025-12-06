@@ -1,35 +1,65 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public class MobileBackManager : MonoBehaviour
 {
+    public static MobileBackManager Instance;
+
+    // Stack of UI panels
+    private Stack<GameObject> panelStack = new Stack<GameObject>();
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     void Update()
     {
-        // Escape on keyboard (PC)
-        if (Keyboard.current != null &&
-            Keyboard.current.escapeKey.wasPressedThisFrame)
-        {
-            HandleQuitOrBack();
-        }
+        bool pressed =
+            (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame) ||
+            (Keyboard.current != null && Keyboard.current.backspaceKey.wasPressedThisFrame) ||
+            (Gamepad.current != null && Gamepad.current.buttonEast.wasPressedThisFrame);
 
-        // Android Back button
-        if (Keyboard.current != null &&
-            Keyboard.current.backspaceKey.wasPressedThisFrame)
-        {
+        if (pressed)
             HandleQuitOrBack();
-        }
+    }
 
-        // Gamepad B / Circle
-        if (Gamepad.current != null &&
-            Gamepad.current.buttonEast.wasPressedThisFrame)
+    // Called by UI to register opening a panel
+    public void PushPanel(GameObject panel)
+    {
+        panelStack.Push(panel);
+    }
+
+    // Called by UI to remove panel
+    public void PopPanel()
+    {
+        if (panelStack.Count > 0)
         {
-            HandleQuitOrBack();
+            GameObject top = panelStack.Pop();
+            top.SetActive(false);
         }
     }
 
     private void HandleQuitOrBack()
     {
+        // 1. If a panel is open → go back in UI
+        if (panelStack.Count > 0)
+        {
+            PopPanel();
+            return;
+        }
+
+        // 2. If no panel open → fallback to scene logic
         string scene = SceneManager.GetActiveScene().name;
 
         if (scene == "GameScene")

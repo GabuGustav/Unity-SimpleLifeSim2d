@@ -32,13 +32,13 @@ public class GameManagerMono : MonoBehaviour
         }
 
         // Optional: load items or NPCs using same pattern
-        
+        /*
         TextAsset itemsText = Resources.Load<TextAsset>("items");
         var items = JsonConvert.DeserializeObject<List<Item>>(itemsText.text);
 
         TextAsset npcsText = Resources.Load<TextAsset>("npcs");
         var npcs = JsonConvert.DeserializeObject<List<NPC>>(npcsText.text);
-        
+        */
     }
 
     public void AdvanceDay()

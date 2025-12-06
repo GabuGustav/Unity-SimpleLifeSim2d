@@ -1,0 +1,57 @@
+[
+  {
+    "id":"e_job_offer",
+    "text":"A small startup offers you an odd gig: 5 hours of unpaid testing, but big exposure.",
+    "conditions":{"minMoney":"0"},
+    "baseWeight":1.0,
+    "choices":[
+      {"text":"Take the gig","effects":{"stress":5,"money":0,"skill_coding":10},"weight":1.0},
+      {"text":"Decline","effects":{"happiness":2},"weight":1.0}
+    ],
+    "tags":["job","startup"]
+  },
+  {
+    "id":"e_mugging",
+    "text":"A mugger blocks your way.",
+    "conditions":{"minMoney":"5"},
+    "baseWeight":0.3,
+    "choices":[
+      {"text":"Fight","effects":{"health":-15,"money":-5},"weight":0.5},
+      {"text":"Give money","effects":{"money":-10,"happiness":-5},"weight":0.5}
+    ],
+    "tags":["danger","crime"]
+  },
+  {
+    "id":"e_rainy_day",
+    "text":"It starts raining heavily.",
+    "conditions":{},
+    "baseWeight":0.5,
+    "choices":[
+      {"text":"Go out anyway","effects":{"health":-5},"weight":1.0},
+      {"text":"Stay indoors","effects":{"happiness":2},"weight":1.0}
+    ],
+    "tags":["weather"]
+  },
+  {
+    "id":"e_npc_help",
+    "text":"An NPC offers to lend you money.",
+    "conditions":{"minMoney":"0"},
+    "baseWeight":0.4,
+    "choices":[
+      {"text":"Accept","effects":{"money":50,"happiness":1},"weight":1.0},
+      {"text":"Decline","effects":{"happiness":-1},"weight":1.0}
+    ],
+    "tags":["npc","social"]
+  },
+  {
+    "id":"e_night_out",
+    "text":"You are invited to a night out.",
+    "conditions":{"maxStress":"50"},
+    "baseWeight":0.7,
+    "choices":[
+      {"text":"Go","effects":{"energy":-20,"happiness":10,"money":-15},"weight":1.0},
+      {"text":"Stay home","effects":{"energy":10,"happiness":-2},"weight":1.0}
+    ],
+    "tags":["social","fun"]
+  }
+]
